@@ -12,6 +12,7 @@ const EditEmailModal = ({ showEmailModal, setShowEmailModal }) => {
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [showNewEmailModal, setShowNewEmailModal] = useState(false);
   const [showNewEmailOtpModal, setShowNewEmailOtpModal] = useState(false);
+  const [countdown, setCountdown] = useState(60);
   const [id, setId] = useState();
 
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
@@ -30,26 +31,36 @@ const EditEmailModal = ({ showEmailModal, setShowEmailModal }) => {
   //     setCurrentEmail(parsed.email || "ajayMohan@gmail.com")
   //   }
   // })
+
   useEffect(() => {
-    const fetchEmail = async () => {
-      const storedAdmin = localStorage.getItem("nfc-admin");
-      if (storedAdmin) {
-        const parsed = JSON.parse(storedAdmin);
-        const id = parsed.id;
-        console.log("id@@@@@@@@@", id);
-        setId(id);
+    if ((showOtpModal && countdown > 0) || (showNewEmailOtpModal && countdown > 0)){
+      const timer = setInterval(() => {
+        setCountdown((prev) => prev - 1);
+      }, 1000);
+      return () => clearInterval(timer);
+    }
+  }, [showOtpModal, showNewEmailOtpModal, countdown]);
 
-        const res = await dispatch(getOldemail({ id: id }));
-        console.log("res$$$$$$$$$$", res);
-        console.log("email1111111111", res?.payload?.email);
-        console.log("email2222222222", res?.payload?.data?.email);
+  const fetchEmail = async () => {
+    const storedAdmin = localStorage.getItem("nfc-admin");
+    if (storedAdmin) {
+      const parsed = JSON.parse(storedAdmin);
+      const id = parsed.id;
+      // console.log("id@@@@@@@@@", id);
+      setId(id);
 
-        if (res?.payload?.data?.email) {
-          setCurrentEmail(res?.payload?.data?.email)
-        }
+      const res = await dispatch(getOldemail({ id: id }));
+      // console.log("res$$$$$$$$$$", res);
+      // console.log("email1111111111", res?.payload?.email);
+      // console.log("email2222222222", res?.payload?.data?.email);
+
+      if (res?.payload?.data?.email) {
+        setCurrentEmail(res?.payload?.data?.email)
       }
-    };
+    }
+  };
 
+  useEffect(() => {
     fetchEmail(); // call the async function
   }, [dispatch]);
 
@@ -77,6 +88,7 @@ const EditEmailModal = ({ showEmailModal, setShowEmailModal }) => {
     if (res?.payload?.status === "success") {
       setShowEmailModal(false);
       setShowOtpModal(true);
+      setCountdown(60);
     }
 
     // setShowEmailModal(false);
@@ -128,15 +140,17 @@ const EditEmailModal = ({ showEmailModal, setShowEmailModal }) => {
     }
 
     const res = await dispatch(newEmailOtp({ email: newEmail }));
-    console.log("res999999999",)
+    // console.log("res999999999",)
     if (res?.payload?.status) {
       setShowNewEmailModal(false);
       setShowNewEmailOtpModal(true);
       // setNewEmail("");
+      setCountdown(60);
     }
   };
 
   const verifyNewEmailOtpfunc = async (e) => {
+    console.log("....hello.......");
     e.preventDefault();
 
     if (newOtp.some((digit)=> digit === "")) {
@@ -151,39 +165,28 @@ const EditEmailModal = ({ showEmailModal, setShowEmailModal }) => {
     // console.log("res000000444444444", res?.payload?.data?.message);
     // console.log("res000000444444444", res?.payload?.data?.status);
         if (res?.payload?.data?.status) {
-          console.log("res0000", res);
-          console.log("res000000002222222", res?.payload?.message);
-          console.log("res000000033333333", res?.payload?.data?.message);
-          console.log("res000000444444444", res?.payload?.status);
-          console.log("res000000444444444", res?.payload?.data?.status);
+          // console.log("res0000", res);
+          // console.log("res000000002222222", res?.payload?.message);
+          // console.log("res000000033333333", res?.payload?.data?.message);
+          // console.log("res000000444444444", res?.payload?.status);
+          // console.log("res000000444444444", res?.payload?.data?.status);
           setShowNewEmailOtpModal(false);
           toast.success(res?.payload?.message);
-          // setShowOtpModal(false);
-          // setShowCreatePasswordModal(true);
           setNewOtp(["", "", "", "", "", ""]);
           setOtp(["", "", "", "", "", ""]);
+          console.log("@@@@@@@@@@@@",currentEmail);
+          console.log("$$$$$$$$$$$$$",newEmail);
+          setCurrentEmail(newEmail);
+          await fetchEmail();
           setNewEmail("");
+          
         }
       } catch (error) {
         setNewOtpError("Invalid OTP");
-        console.error("An error occured.")
+        console.error("An error occured.");
       }
 
-    // if (newOtp.join("") === "7890") {
-    //   alert("Email successfully changed!");
-    //   setShowNewEmailOtpModal(false);
 
-    //   // update localStorage
-    //   const admin = JSON.parse(localStorage.getItem("nfc-admin"));
-    //   localStorage.setItem(
-    //     "nfc-admin",
-    //     JSON.stringify({ ...admin, email: newEmail })
-    //   );
-    //   setCurrentEmail(newEmail);
-
-    // } else {
-    //   setNewOtpError("Invalid OTP");
-    // }
   };
 
   const renderOtpInputs = (otpArray, setOtpArray, refs, error) => (
@@ -228,7 +231,7 @@ const EditEmailModal = ({ showEmailModal, setShowEmailModal }) => {
         </Modal.Header>
         <Modal.Body className='text-center'>
           <p style={{ fontSize: "16px" }}>{currentEmail}</p>
-          <Button variant="primary" onClick={sendOtpToOldEmail}>Edit</Button>
+          <Button variant="primary" onClick={sendOtpToOldEmail}>{forgotPassloading ? "Edit..." : "Edit"}</Button>
         </Modal.Body>
       </Modal>
 
@@ -240,6 +243,13 @@ const EditEmailModal = ({ showEmailModal, setShowEmailModal }) => {
         <Modal.Body>
           <Form onSubmit={verifyOldOtp}>
             {renderOtpInputs(otp, setOtp, otpInputRefs, otpError)}
+            <div className='text-center mt-3'>
+              {countdown > 0 ? (
+                <span>Resend in {countdown}s</span>
+              ) : (
+                <Button variant="link" onClick={sendOtpToOldEmail}>{forgotPassloading ? "Resending..." : "Resend OTP"} </Button>
+              )}
+            </div>
             <div className='d-flex justify-content-center'>
               <Button type="submit" className='mt-3'>
                 {verifyForgotPasswordOtpLoading ? "Verifying.." : "Verify"}</Button>
@@ -283,6 +293,13 @@ const EditEmailModal = ({ showEmailModal, setShowEmailModal }) => {
         <Modal.Body>
           <Form onSubmit={verifyNewEmailOtpfunc}>
             {renderOtpInputs(newOtp, setNewOtp, newOtpInputRefs, newOtpError)}
+            <div className='text-center mt-3'>
+              {countdown > 0 ? (
+                <span>Resend in {countdown}s</span>
+              ) : (
+                <Button variant="link" onClick={sendOtpToNewEmail}>{newEmailOtpLoading ? "Resending..." : "Resend OTP"}</Button>
+              )}
+            </div>
             <div className='d-flex justify-content-center'>
               <Button type="submit" className='mt-3'>
                 {verifyNewEmailOtpLoading ? "Verifying..." : "Verify"}</Button>

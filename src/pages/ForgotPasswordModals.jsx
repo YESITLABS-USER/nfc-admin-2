@@ -15,7 +15,7 @@ const ForgotPasswordModals = ({ show, onClose }) => {
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [otpError, setOtpError] = useState(null);
-  const [countdown, setCountdown] = useState(90);
+  const [countdown, setCountdown] = useState(60);
   const otpInputRefs = useRef([]);
 
   const [showCreatePasswordModal, setShowCreatePasswordModal] = useState(false);
@@ -60,7 +60,7 @@ const ForgotPasswordModals = ({ show, onClose }) => {
     if (res?.payload?.status == "success") {
       setShowForgotPasswordModal(false);
       setShowOtpModal(true);
-      setCountdown(90);
+      setCountdown(60);
     }
   };
 
@@ -182,7 +182,7 @@ const ForgotPasswordModals = ({ show, onClose }) => {
             {forgotPasswordSuccess && <div className="text-success mt-2">{forgotPasswordSuccess}</div>}
             <div className="d-flex justify-content-center">
               <Button type="submit" className="mt-3">
-                {forgotPassloading ? "Sending Otp..." : "Send Otp"}
+                {forgotPassloading ? "Submittimg..." : "Submit"}
               </Button>
             </div>
           </Form>
