@@ -182,7 +182,7 @@ const ForgotPasswordModals = ({ show, onClose }) => {
             {forgotPasswordSuccess && <div className="text-success mt-2">{forgotPasswordSuccess}</div>}
             <div className="d-flex justify-content-center">
               <Button type="submit" className="mt-3">
-                {forgotPassloading ? "Submittimg..." : "Submit"}
+                {forgotPassloading ? "Submitting..." : "Submit"}
               </Button>
             </div>
           </Form>

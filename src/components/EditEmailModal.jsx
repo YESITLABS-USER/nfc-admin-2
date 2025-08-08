@@ -33,7 +33,7 @@ const EditEmailModal = ({ showEmailModal, setShowEmailModal }) => {
   // })
 
   useEffect(() => {
-    if ((showOtpModal && countdown > 0) || (showNewEmailOtpModal && countdown > 0)){
+    if ((showOtpModal && countdown > 0) || (showNewEmailOtpModal && countdown > 0)) {
       const timer = setInterval(() => {
         setCountdown((prev) => prev - 1);
       }, 1000);
@@ -85,15 +85,17 @@ const EditEmailModal = ({ showEmailModal, setShowEmailModal }) => {
   const sendOtpToOldEmail = async () => {
 
     const res = await dispatch(forgotPassword({ email: currentEmail }));
+
     if (res?.payload?.status === "success") {
       setShowEmailModal(false);
       setShowOtpModal(true);
       setCountdown(60);
+
     }
 
     // setShowEmailModal(false);
     // setShowOtpModal(true);
-    
+
   };
 
   const verifyOldOtp = async (e) => {
@@ -153,38 +155,38 @@ const EditEmailModal = ({ showEmailModal, setShowEmailModal }) => {
     console.log("....hello.......");
     e.preventDefault();
 
-    if (newOtp.some((digit)=> digit === "")) {
+    if (newOtp.some((digit) => digit === "")) {
       return toast.error("Please enter the OTP");
     };
 
-        try{
-        const res = await dispatch (verifyNewEmailOtp({email: newEmail,id:id, otp:newOtp.join("")}));
-    // console.log("res0000", res);
-    // console.log("res000000002222222", res?.payload?.message);
-    // console.log("res000000033333333", res?.payload?.data?.message);
-    // console.log("res000000444444444", res?.payload?.data?.message);
-    // console.log("res000000444444444", res?.payload?.data?.status);
-        if (res?.payload?.data?.status) {
-          // console.log("res0000", res);
-          // console.log("res000000002222222", res?.payload?.message);
-          // console.log("res000000033333333", res?.payload?.data?.message);
-          // console.log("res000000444444444", res?.payload?.status);
-          // console.log("res000000444444444", res?.payload?.data?.status);
-          setShowNewEmailOtpModal(false);
-          toast.success(res?.payload?.message);
-          setNewOtp(["", "", "", "", "", ""]);
-          setOtp(["", "", "", "", "", ""]);
-          console.log("@@@@@@@@@@@@",currentEmail);
-          console.log("$$$$$$$$$$$$$",newEmail);
-          setCurrentEmail(newEmail);
-          await fetchEmail();
-          setNewEmail("");
-          
-        }
-      } catch (error) {
-        setNewOtpError("Invalid OTP");
-        console.error("An error occured.");
+    try {
+      const res = await dispatch(verifyNewEmailOtp({ email: newEmail, id: id, otp: newOtp.join("") }));
+      // console.log("res0000", res);
+      // console.log("res000000002222222", res?.payload?.message);
+      // console.log("res000000033333333", res?.payload?.data?.message);
+      // console.log("res000000444444444", res?.payload?.data?.message);
+      // console.log("res000000444444444", res?.payload?.data?.status);
+      if (res?.payload?.data?.status) {
+        // console.log("res0000", res);
+        // console.log("res000000002222222", res?.payload?.message);
+        // console.log("res000000033333333", res?.payload?.data?.message);
+        // console.log("res000000444444444", res?.payload?.status);
+        // console.log("res000000444444444", res?.payload?.data?.status);
+        setShowNewEmailOtpModal(false);
+        toast.success(res?.payload?.message);
+        setNewOtp(["", "", "", "", "", ""]);
+        setOtp(["", "", "", "", "", ""]);
+        console.log("@@@@@@@@@@@@", currentEmail);
+        console.log("$$$$$$$$$$$$$", newEmail);
+        setCurrentEmail(newEmail);
+        await fetchEmail();
+        setNewEmail("");
+
       }
+    } catch (error) {
+      setNewOtpError("Invalid OTP");
+      console.error("An error occured.");
+    }
 
 
   };
@@ -236,7 +238,16 @@ const EditEmailModal = ({ showEmailModal, setShowEmailModal }) => {
       </Modal>
 
       {/* Modal 2: OTP Verification (Old Email) */}
-      <Modal show={showOtpModal} onHide={() => setShowOtpModal(false)} centered>
+      {/* <Modal show={showOtpModal} onHide={() => setShowOtpModal(false)} centered> */}
+      <Modal
+        show={showOtpModal}
+        onHide={() => {
+          setShowOtpModal(false);
+          setOtp(["", "", "", "", "", ""]); // Reset OTP
+          setOtpError(null); // Clear error
+        }}
+        centered
+      >
         <Modal.Header closeButton>
           <Modal.Title style={{ fontSize: "20px" }}>Verify OTP sent to "{currentEmail}"</Modal.Title>
         </Modal.Header>
@@ -284,7 +295,16 @@ const EditEmailModal = ({ showEmailModal, setShowEmailModal }) => {
       </Modal>
 
       {/* Modal 4: Verify OTP (New Email) */}
-      <Modal show={showNewEmailOtpModal} onHide={() => setShowNewEmailOtpModal(false)} centered>
+      {/* <Modal show={showNewEmailOtpModal} onHide={() => setShowNewEmailOtpModal(false)} centered> */}
+      <Modal
+        show={showNewEmailOtpModal}
+        onHide={() => {
+          setShowNewEmailOtpModal(false);
+          setNewOtp(["", "", "", "", "", ""]); // Reset OTP
+          setNewOtpError(null); // Clear error
+        }}
+        centered
+      >
         <Modal.Header closeButton>
           <Modal.Title style={{ fontSize: "20px" }}>
             Verify OTP sent to "{newEmail}"
