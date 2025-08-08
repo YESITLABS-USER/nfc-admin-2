@@ -104,11 +104,9 @@ img {
 
 .login-form {
   flex: 50%;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.24) 0%,
-    rgba(0, 0, 0, 0.24) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(0, 0, 0, 0.24) 0%,
+      rgba(0, 0, 0, 0.24) 100%);
   height: 100%;
   display: flex;
   align-items: center;
@@ -525,11 +523,11 @@ img {
   transition: 0.2s ease-in;
 }
 
-.toggle input[type="checkbox"]:checked + label:before {
+.toggle input[type="checkbox"]:checked+label:before {
   background: #4bd865;
 }
 
-.toggle input[type="checkbox"]:checked + label:after {
+.toggle input[type="checkbox"]:checked+label:after {
   left: 21px;
 }
 
@@ -4615,9 +4613,7 @@ label.no-expariton-check h3 {
   outline: 1px solid #2a0181;
 }
 
-.bottom-coupon-form-wrap
-  label.no-expariton-check
-  input[type="checkbox"]:checked {
+.bottom-coupon-form-wrap label.no-expariton-check input[type="checkbox"]:checked {
   background-image: url(../images/menu-icons/checked-checkbox.svg);
   background-position: center;
   background-repeat: no-repeat;
@@ -4879,7 +4875,7 @@ button.logout-in-btn.btn.btn-primary.logout-in-btn {
   box-shadow: 0px 4px 4px 0px #00000040;
 }
 
-.rs-picker-daterange > .rs-input-group.rs-input-group-inside .rs-input {
+.rs-picker-daterange>.rs-input-group.rs-input-group-inside .rs-input {
   background: #2a0181;
   padding: 0;
   color: #fff;
@@ -4901,9 +4897,7 @@ svg.rs-picker-caret-icon.rs-icon.rs-icon {
   color: #fff;
 }
 
-.rs-picker-daterange
-  > .rs-input-group.rs-input-group-inside
-  .rs-input::placeholder {
+.rs-picker-daterange>.rs-input-group.rs-input-group-inside .rs-input::placeholder {
   color: #fff;
 }
 
@@ -4915,20 +4909,13 @@ svg.rs-picker-caret-icon.rs-icon.rs-icon {
   font-weight: 500;
 }
 
-.rs-picker-popup
-  .rs-calendar
-  .rs-calendar-table-cell:hover
-  .rs-calendar-table-cell-content {
+.rs-picker-popup .rs-calendar .rs-calendar-table-cell:hover .rs-calendar-table-cell-content {
   padding: 4px 4px;
   background: #2a0181 !important;
   border-radius: 4px;
 }
 
-.rs-picker-popup
-  .rs-calendar
-  .rs-calendar-table-cell:hover
-  .rs-calendar-table-cell-content
-  span.rs-calendar-table-cell-day {
+.rs-picker-popup .rs-calendar .rs-calendar-table-cell:hover .rs-calendar-table-cell-content span.rs-calendar-table-cell-day {
   color: #fff;
   font-weight: 500;
 }
@@ -4971,8 +4958,7 @@ svg.rs-picker-caret-icon.rs-icon.rs-icon {
   box-shadow: none !important;
 }
 
-.rs-calendar-table-cell.rs-calendar-table-cell-un-same-month.rs-calendar-table-cell-is-today
-  span.rs-calendar-table-cell-day {
+.rs-calendar-table-cell.rs-calendar-table-cell-un-same-month.rs-calendar-table-cell-is-today span.rs-calendar-table-cell-day {
   color: #fff !important;
 }
 
@@ -5112,10 +5098,7 @@ button.close.close-btn-front,
   padding: 9.5px 10px 9.5px 20px;
 }
 
-.influ-btns
-  .rs-picker-daterange
-  .rs-picker-input-group
-  span.rs-input-group-addon {
+.influ-btns .rs-picker-daterange .rs-picker-input-group span.rs-input-group-addon {
   padding: 0;
   position: relative;
 
@@ -5225,10 +5208,7 @@ button.close.close-btn-front,
   padding: 10px;
 }
 
-.common-pop-warp
-  .campaign-termsbox-wrap
-  .target-NFC-box
-  .target-headingNFC-wrap {
+.common-pop-warp .campaign-termsbox-wrap .target-NFC-box .target-headingNFC-wrap {
   width: 100%;
   height: auto;
   display: flex;
@@ -5283,10 +5263,8 @@ button.rs-btn.rs-btn-primary.rs-btn-sm::after {
 .rs-picker-toolbar-right {
   margin: 4px;
 }
-.influ-btns
-  .rs-picker-daterange
-  button.rs-picker-clean.rs-btn-close
-  svg.rs-icon {
+
+.influ-btns .rs-picker-daterange button.rs-picker-clean.rs-btn-close svg.rs-icon {
   display: block;
 }
 
@@ -5298,23 +5276,64 @@ button.rs-btn.rs-btn-primary.rs-btn-sm::after {
 
 /* EXTRA-CSS */
 
-.css-13cymwt-control, .css-16xfy0z-control{
+.css-13cymwt-control,
+.css-16xfy0z-control {
   min-height: 30px !important;
   max-height: 35px !important;
   overflow-y: hidden !important;
 }
-.css-hlgwow{
+
+.css-hlgwow {
   padding: 0px 8px !important;
 }
-.css-19bb58m, .css-1mkvw8y{
+
+.css-19bb58m,
+.css-1mkvw8y {
   margin: 0px 0px !important;
   padding: 0px !important;
 }
+
 .css-1jqq78o-placeholder {
   text-align: left !important;
 }
 
-.business-aboutus .ql-toolbar.ql-snow + .ql-container.ql-snow{
-      height: 445px !important;
-    border-radius: 0px 0px 10px 10px !important;
+.business-aboutus .ql-toolbar.ql-snow+.ql-container.ql-snow {
+  height: 445px !important;
+  border-radius: 0px 0px 10px 10px !important;
 }
+
+/* 08-08-25 */
+
+button.forgot-flow-cta {
+  width: 100%;
+  height: auto;
+  color: #fff;
+  border: none;
+  display: flex;
+  border-radius: 8px;
+  background: #2c0187;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 0.8rem 5rem;
+}
+
+button.forgot-flow-cta:hover {
+  background: #2c0187;
+}
+
+input.otp-box {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  outline: none;
+  box-shadow: none !important;
+
+  &:focus {
+    border-color: #2c0187;
+  }
+}
+
+/* 08-08-25 */

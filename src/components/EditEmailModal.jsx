@@ -233,7 +233,7 @@ const EditEmailModal = ({ showEmailModal, setShowEmailModal }) => {
         </Modal.Header>
         <Modal.Body className='text-center'>
           <p style={{ fontSize: "16px" }}>{currentEmail}</p>
-          <Button variant="primary" onClick={sendOtpToOldEmail}>{forgotPassloading ? "Edit..." : "Edit"}</Button>
+          <Button variant="primary" className='forgot-flow-cta' onClick={sendOtpToOldEmail}>{forgotPassloading ? "Edit..." : "Edit"}</Button>
         </Modal.Body>
       </Modal>
 
@@ -262,7 +262,7 @@ const EditEmailModal = ({ showEmailModal, setShowEmailModal }) => {
               )}
             </div>
             <div className='d-flex justify-content-center'>
-              <Button type="submit" className='mt-3'>
+              <Button type="submit" className='mt-3 forgot-flow-cta'>
                 {verifyForgotPasswordOtpLoading ? "Verifying.." : "Verify"}</Button>
             </div>
           </Form>
@@ -286,7 +286,7 @@ const EditEmailModal = ({ showEmailModal, setShowEmailModal }) => {
 
             </Form.Group>
             <div className="d-flex justify-content-center">
-              <Button type="submit" className='mt-3'>
+              <Button type="submit" className='mt-3 forgot-flow-cta'>
                 {newEmailOtpLoading ? "Sending OTP..." : "Send OTP"}</Button>
             </div>
           </Form>
@@ -321,7 +321,7 @@ const EditEmailModal = ({ showEmailModal, setShowEmailModal }) => {
               )}
             </div>
             <div className='d-flex justify-content-center'>
-              <Button type="submit" className='mt-3'>
+              <Button type="submit" className='mt-3 forgot-flow-cta'>
                 {verifyNewEmailOtpLoading ? "Verifying..." : "Verify"}</Button>
             </div>
           </Form>

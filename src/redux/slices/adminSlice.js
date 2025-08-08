@@ -171,11 +171,11 @@ const authSlice = createSlice({
       .addCase(forgotPassword.fulfilled, (state, action) => {
         state.forgotPassloading = false;
         state.forgotPass = action.payload;
+        state.error = null;
+
       })
       .addCase(forgotPassword.rejected, (state, action) => {
         state.forgotPassloading = false;
-        state.error = "Not Valid email";
-        console.log(action.payload)
         toast.error(action?.payload?.message)
       })
 
@@ -187,10 +187,10 @@ const authSlice = createSlice({
       .addCase(verifyForgotPasswordOtp.fulfilled, (state, action) => {
         state.verifyForgotPasswordOtpLoading = false;
         state.verifyForgotOtp = action.payload;
+        state.error = null;
       })
       .addCase(verifyForgotPasswordOtp.rejected, (state, action) => {
         state.verifyForgotPasswordOtpLoading = false;
-        console.log(action?.payload)
         toast.error(action?.payload?.message || "Failed to verify")
         state.error = action.payload?.message || "Failed to verify";
       })
@@ -202,11 +202,11 @@ const authSlice = createSlice({
       .addCase(resetPassword.fulfilled, (state, action) => {
         state.resetPasswordLoading = false;
         state.resetPasswordData = action.payload;
+        state.error = null;
       })
       .addCase(resetPassword.rejected, (state, action) => {
         state.resetPasswordLoading = false;
         toast.error(action?.payload?.message || "Failed to reset Password")
-        state.error = action?.payload?.message || "Failed to reset Password"
       })
       //get old email to use in email changed apis
       .addCase(getOldemail.pending, (state) => {
@@ -216,11 +216,10 @@ const authSlice = createSlice({
       .addCase(getOldemail.fulfilled, (state, action) => {
         state.getOldemailloading = false;
         state.getOldemailData = action.payload;
+        state.error = null;
       })
       .addCase(getOldemail.rejected, (state, action) => {
         state.getOldemailloading = false;
-        console.log(action?.payload);
-        toast.error(action?.payload?.meassage || "Failed to get Email.")
       })
       //email changed apis
       .addCase(newEmailOtp.pending, (state) => {
@@ -230,10 +229,11 @@ const authSlice = createSlice({
       .addCase(newEmailOtp.fulfilled, (state, action) => {
         state.newEmailOtpLoading = false;
         state.newEmailOtpData = action.payload;
+        state.error = null;
+
       })
       .addCase(newEmailOtp.rejected, (state, action) => {
         state.newEmailOtpLoading = false;
-        state.error = "Not Valid email";
         toast.error(action?.payload?.message)
       })
       //Forgot Password: verifyNewEmailOtp Api
@@ -244,12 +244,11 @@ const authSlice = createSlice({
       .addCase(verifyNewEmailOtp.fulfilled, (state, action) => {
         state.verifyNewEmailOtpLoading = false;
         state.verifyNewEmailOtpData = action.payload;
+        state.error = null;
       })
       .addCase(verifyNewEmailOtp.rejected, (state, action) => {
         state.verifyNewEmailOtpLoading = false;
-        console.log(action?.payload)
         toast.error(action?.payload?.message || "Failed to verify")
-        state.error = action.payload?.message || "Failed to verify";
       })
 
   },

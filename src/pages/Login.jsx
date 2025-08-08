@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import  { useEffect, useState } from "react";
 import logo from "/images/login-page/logo.svg"
 import email_svg from "/images/login-page/icons/email.svg"
 import password_svg from "/images/login-page/icons/password.svg"
@@ -8,7 +8,6 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import CryptoJS from "crypto-js";
 import { login } from "../redux/slices/adminSlice.js";
 import { useDispatch, useSelector } from "react-redux";
-import ForgotPasswordModal from "./ForgotPasswordModals.jsx";
 import ForgotPasswordModals from "./ForgotPasswordModals.jsx";
 
 const Login = () => {
@@ -94,129 +93,6 @@ const Login = () => {
 
   // forgot password changes email modal
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
-//   const [forgotPasswordEmail, setForgotPasswordEmail] = useState("");
-//   const [forgotPasswordError, setForgotPasswordError] = useState(null);
-//   const [forgotPasswordSuccess, setForgotPasswordSuccess] = useState(null);
-
-
-//     // forgot password changes otp modal
-
-//     const [showOtpModal, setShowOtpModal] = useState(false);
-//     const [otp, setOtp] = useState(["", "", "", ""]);
-//     const [otpError, setOtpError] = useState(null);
-  
-//     const [countdown, setCountdown] = useState(20);
-//     const otpInputRefs = useRef([]);
-
-//  // forgot password changes: create new password otp
-
-//  const [showCreatePasswordModal, setShowCreatePasswordModal] = useState(false);
-//  const [newPassword, setNewPassword] = useState("");
-//  const [confirmPassword, setConfirmPassword] = useState("");
-//  const [passwordError, setPasswordError] = useState(null);
-
-  // const handleForgotPasswordSubmit = (e) => {
-  //   // console.log("hello........" )
-  //   console.log("email@@@@", forgotPasswordEmail)
-  //   e.preventDefault();
-  //   setForgotPasswordError(null);
-  //   setForgotPasswordSuccess(null);
-
-  //   if (!forgotPasswordEmail) {
-  //     setForgotPasswordError("Please enter your email address");
-  //     return;
-  //   }
-
-  //   // try {
-  //   // Add your forgot password API call here
-  //   // Example:
-  //   // const response = await forgotPasswordAPI(forgotPasswordEmail);
-  //   // if (response.success) {
-  //   //   setForgotPasswordSuccess("Password reset link sent to your email");
-  //   // } else {
-  //   //   setForgotPasswordError(response.message);
-  //   // }
-
-  //   // For now, just simulate success
-  //   //   setForgotPasswordSuccess("Password reset link sent to your email");
-  //   //   // setTimeout(() => {
-  //   //   //   setShowForgotPasswordModal(false);
-  //   //   // }, 2000);
-  //   // } catch (err) {
-  //   //   setForgotPasswordError(err.message || "Failed to send reset link");
-  //   // }
-
-  //   setShowForgotPasswordModal(false);
-  //   setShowOtpModal(true);
-  // };
-
-
-
-  // useEffect(() => {
-  //   if (showOtpModal && countdown > 0) {
-  //     const timer = setInterval(() => {
-  //       setCountdown((prev) => prev - 1);
-  //     }, 1000);
-  //     return () => clearInterval(timer);
-  //   }
-  // }, [showOtpModal, countdown]);
-
-  // const handleVerifyOtp = (e) => {
-  //   e.preventDefault();
-  //   console.log("otp@@@@@", otp);
-  //   const enteredOtp = otp.join(""); // assuming otp is ['1', '2', '3', '4', '5']
-  //   if (enteredOtp === "123456") {
-  //     alert("OTP Verified!");
-  //     setShowOtpModal(false);
-  //     setShowCreatePasswordModal(true);
-  //   }
-  //   else {
-  //     setOtpError("Invalid OTP. Please try again.");
-  //   }
-  // };
-
-  // const handleCreatePassword = (e) => {
-  //   console.log("new password", newPassword);
-  //   console.log("confirmPassword", confirmPassword);
-  //   e.preventDefault();
-
-  //   if (!newPassword || !confirmPassword) {
-  //     setPasswordError("Please fill both fields.");
-  //     return;
-  //   }
-
-  //   if (newPassword !== confirmPassword) {
-  //     setPasswordError("Password do not match.");
-  //     return;
-  //   }
-
-  //   if (newPassword.length<6) {
-  //     setPasswordError("Password must be at least 6 characters.");
-  //     return;
-  //   }
-
-  //   alert("Password reset successful!");
-  //   setShowCreatePasswordModal(false);
-
-  //   setNewPassword("");
-  //   setConfirmPassword("");
-  // }
-
-  // const handleCloseForgotPasswordModal = () => {
-  //   console.log("skldjf")
-  //   setForgotPasswordEmail("");
-  //   setForgotPasswordError(null);
-  //   setForgotPasswordSuccess(null);
-  //   setShowForgotPasswordModal(false);
-    
-  // }
-
-  // const handleCloseCreatePasswordModal = () => {
-  //   setNewPassword("");
-  //   setConfirmPassword("");
-  //   setPasswordError(null);
-  //   setShowCreatePasswordModal(false);
-  // }
 
   return (
     <div className="login-wrap">
@@ -263,14 +139,12 @@ const Login = () => {
               <div className="rembr-me" >
                 <input type="checkbox" name="rembr-me" checked={keepLoggedIn} onChange={(e) => setKeepLoggedIn(e.target.checked)} /> Keep me logged in
               </div>
-              <div style={{ width: "100%", textAlign: "end", color: "#199FD9", cursor: "pointer" }} onClick={() => setShowForgotPasswordModal(true)}>
+              <div style={{ width: "100%", textAlign: "end", color: "#2c0187", cursor: "pointer" }} 
+                onClick={(e) => {e.preventDefault();
+                setShowForgotPasswordModal(!showForgotPasswordModal)}}>
                 Forgot password?
-                {/* <a href="#" onclick={(e) => 
-              {e.preventDefault(); 
-                setShowForgotPasswordModal(true);
-
-              }}>
-              Forgot password?
+                {/* <a href="#" onclick={(e) => {e.preventDefault();  setShowForgotPasswordModal(true); }}>
+                  Forgot password?
                 </a> */}
               </div>
             </div>
@@ -280,177 +154,9 @@ const Login = () => {
         </div>
       </div>
 
-      {/* Forgot Password: enter your email Modal */}
-
-
-      {/* <Modal
+     <ForgotPasswordModals
         show={showForgotPasswordModal}
-        // onHide={() => setShowForgotPasswordModal(false)}
-        onHide={handleCloseForgotPasswordModal}
-        // backdrop="static"
-        centered
-        // className="login-succ animate__animated animate__bounceIn login-modal-wp"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Reset Password</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleForgotPasswordSubmit}>
-            <Form.Group controlId="forgotPasswordEmail">
-              <Form.Label style={{ fontSize: "18px", fontWeight: "450" }}>Enter your email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter your registered email"
-                value={forgotPasswordEmail} 
-                onChange={(e) => {e.preventDefault(); setForgotPasswordEmail(e.target.value)}}
-              />
-            </Form.Group>
-            {forgotPasswordError && (
-              <div className="text-danger mt-2">{forgotPasswordError}</div>
-            )}
-            {forgotPasswordSuccess && (
-              <div className="text-success mt-2">{forgotPasswordSuccess}</div>
-            )}
-            <div className="d-flex justify-content-center">
-              <Button
-                variant="primary"
-                type="submit"
-                className="mt-3"
-                // disabled={!forgotPasswordEmail}
-                style={{ cursor: "pointer" }}
-              >
-                Send Otp
-              </Button>
-            </div>
-          </Form>
-        </Modal.Body>
-      </Modal> */}
-
-
-      {/* Forgot Password: enter OTP */}
-
-      {/* <Modal
-        show={showOtpModal}
-        onHide={() => setShowOtpModal(false)}
-        centered
-        // className="login-succ animate__animated animate__bounceIn login-modal-wp"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Enter Verification Code</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleVerifyOtp}
-          >
-            <Form.Label style={{ fontSize: "18px", color:"#333" }}>
-              We have sent the verification code to your registered email id
-            </Form.Label>
-           
-
-            <div className="d-flex justify-content-center gap-2">
-              {[0, 1, 2, 3, 4, 5].map((i) => (
-                <Form.Control
-                  key={i}
-                  type="text"
-                  maxLength="1"
-                  value={otp[i]}
-                  ref={(el) => (otpInputRefs.current[i] = el)}
-                  onChange={(e) => {
-                    const val = e.target.value;
-                    if (/^[0-9]?$/.test(val)) {
-                      const newOtp = [...otp];
-                      newOtp[i] = val;
-                      setOtp(newOtp);
-                      if (val && i < 5) otpInputRefs.current[i + 1]?.focus();
-                    }
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Backspace" && otp[i] === "" && i > 0) {
-                      otpInputRefs.current[i - 1]?.focus();
-                    }
-                  }}
-                  className="otp-box"
-                />
-              ))}
-            </div>
-            {otpError && <p className="text-danger text-center mt-2">{otpError}</p>}
-
-            <div className="text-center mt-3">
-              {countdown > 0 ? (
-                <span>Resend in {countdown}s</span>
-              ) : (
-                <Button variant="link" onClick={() => setCountdown(120)}>
-                  Resend OTP
-                </Button>
-              )}
-            </div>
-            {otpError && <div className="text-danger mt-2">{otpError}</div>}
-            <div className="d-flex justify-content-center">
-              <Button type="submit" variant="primary" className="mt-3" style={{ cursor: "pointer" }}>
-                Verify OTP
-              </Button>
-            </div>
-          </Form>
-
-        </Modal.Body>
-      </Modal> */}
-
-      {/* Forgot Password: reset password modal */}
-
-      {/* <Modal
-      show={showCreatePasswordModal}
-      // onHide={() => setShowCreatePasswordModal(false)}
-      onHide={handleCloseCreatePasswordModal}
-      centered
-      // className="login-succ animate__animated animate__bounceIn login-modal-wp"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Create New Password</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleCreatePassword}>
-            <Form.Group>
-              <Form.Label>New Password</Form.Label>
-              <Form.Control
-              type="password"
-              value={newPassword}
-              onChange={(e) => {
-                setNewPassword(e.target.value);
-                setPasswordError(null);
-              }}
-              placeholder="Enter new password"
-              />
-            </Form.Group>
-
-            <Form.Group>
-              <Form.Label>Confirm Password</Form.Label>
-              <Form.Control
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => {
-                setConfirmPassword(e.target.value);
-                setPasswordError(null);
-              }}
-              placeholder="Confirm new password"
-              />
-            </Form.Group>
-
-            {passwordError && (
-              <div className="text-danger mt-2">{passwordError}</div>
-            )}
-
-            <div className="d-flex justify-content-center">
-              <Button type="submit" className="mt-3">
-                Submit
-              </Button>
-            </div>
-          </Form>
-        </Modal.Body>
-      </Modal> */}
-
-
-      <ForgotPasswordModals
-      show={showForgotPasswordModal}
-      onClose={() => setShowForgotPasswordModal(false)}
+        onClose={() => setShowForgotPasswordModal(!showForgotPasswordModal)}
       />
 
       <LoginSuccessModal showModal={showModal} setShowModal={setShowModal} navigate={navigate} />
